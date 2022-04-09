@@ -1,0 +1,2 @@
+Vacancy;URL
+Data Engineer;https://hh.ru/vacancies/data-engineer?page={}&hhtmFrom=vacancy_search_catalog
