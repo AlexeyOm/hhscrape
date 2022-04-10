@@ -14,7 +14,7 @@ NEWSPIDER_MODULE = 'hhscrape.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'student looking for a data engineer job'
+USER_AGENT = 'alexey.omelchenko@gmail.com student looking for a data engineer job'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False

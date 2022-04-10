@@ -5,6 +5,8 @@ from scrapy.http import JsonRequest
 import csv
 import json
 
+fp = open('foo.txt', 'w')
+
 class hhscrape(scrapy.Spider):
     name = 'hhscrape'
     allowed_domains = ['hh.ru']
@@ -18,6 +20,7 @@ class hhscrape(scrapy.Spider):
         hh_json = json.loads(response.body.decode(response.encoding))
         print("-------------------")
         for vacancy in hh_json['items']:
+            fp.write(vacancy['name'] + '\n')
             print(vacancy['id'])
             print(vacancy['name'])
             print(vacancy['area']['name'])
@@ -31,8 +34,9 @@ class hhscrape(scrapy.Spider):
                 salary_is_hidden = True
         if hh_json['pages'] > hh_json['page'] + 1:
             print("goind to the next page" + str(hh_json['page'] + 1))
-            request = JsonRequest(start_urls[0].replace("page=0","page=" + str(hh_json['page'] + 1) ))
-            pass
+            yield JsonRequest(response.url.replace("page=0","page=" + str(hh_json['page'] + 1) ))
+        else:
+            fp.close()
         print("-------------------")
         
             
