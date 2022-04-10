@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import scrapy
 from hhscrape.items import HhscrapeItem
 from scrapy.http import JsonRequest
@@ -20,6 +21,10 @@ class hhscrape(scrapy.Spider):
         hh_json = json.loads(response.body.decode(response.encoding))
         print("-------------------")
         for vacancy in hh_json['items']:
+            yield {
+                'vacancy_title' : vacancy['name'],
+                'vacancy_id' : vacancy['id']
+            }
             fp.write(vacancy['name'] + '\n')
             print(vacancy['id'])
             print(vacancy['name'])
@@ -33,11 +38,14 @@ class hhscrape(scrapy.Spider):
             else:
                 salary_is_hidden = True
         if hh_json['pages'] > hh_json['page'] + 1:
-            print("goind to the next page" + str(hh_json['page'] + 1))
+            print("going to the next page" + str(hh_json['page'] + 1))
             yield JsonRequest(response.url.replace("page=0","page=" + str(hh_json['page'] + 1) ))
         else:
             fp.close()
         print("-------------------")
+        
+
+
         
             
 
